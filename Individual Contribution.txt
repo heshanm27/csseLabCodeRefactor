@@ -1,0 +1,20 @@
+IT20299620  K.V.Y.S. Kumara
+	* Remove all unnecessarily created variables and use meaningful variables
+	  according to Java coding conventions
+	* Use enhanced for loops for iterations 
+
+IT20611910  B.D.H. Maduranga
+	* Refactor the project source code according to Java coding conventions. 
+	* Refactor the Project with adding proper design patterns (Add Template
+	  method or Singleton Design Patterns for the project).
+
+IT20068028  R.B. Ranasinghe
+	* Remove Constants and Modify each class with adding class-level, method-level, single-line
+	  comments and multi-line comments
+	* Modify project Classes, Methods and all implemented variables according to
+	  Java coding conventions.
+
+IT20603922  D.G.T.S. Gunasekara 
+	* Modify Exception handling hierarchy with catching specific exception and
+	  each exception should be logged
+	* Add loggers for necessary places
