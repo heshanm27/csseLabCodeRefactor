@@ -48,11 +48,11 @@ public class DbConnectionUtill extends ConfigUtil{
 				log.log(Level.SEVERE,e.getMessage());
 			
 			}finally {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					log.log(Level.SEVERE,e.getMessage());
-				}
+//				try {
+//					connection.close();
+//				} catch (SQLException e) {
+//					log.log(Level.SEVERE,e.getMessage());
+//				}
 			}
 					
 	}

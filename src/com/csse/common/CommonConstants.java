@@ -1,5 +1,7 @@
 package com.csse.common;
 
+import java.text.MessageFormat;
+
 public final class CommonConstants {
 	
 	public static class ConfigUtil{
@@ -11,7 +13,14 @@ public final class CommonConstants {
 	}
 	
 	public static class TransformUtil{
+		public static final String BASE_PATH = "//Employees/Employee[";
 		
+		
+		
+		public static String  getCompliePath(int number,String path2) {
+			String message = MessageFormat.format("{0}" + "{1}"+ "{2}",BASE_PATH, number, path2);
+			return message;
+		}
 	}
 	
 	public static class EmployeeServices{

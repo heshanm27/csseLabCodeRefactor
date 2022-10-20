@@ -5,6 +5,7 @@ import javax.xml.xpath.XPathFactory;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -33,7 +34,7 @@ private static final ArrayList<Map<String, String>> _employeeList= new ArrayList
 	private static String _EmployeeRequestPathString  = "src/com/csse/config/EmployeeRequest.xml";
 	private static String _EmployeeModifiedPathString = "src/com/csse/config/Employee-modified.xsl";
 	private static String _EmployeeResponsePathString = "src/com/csse/config/EmployeeResponse.xml";
-	
+	 
 
 	public static void  requestTransform() throws Exception {
 
@@ -53,18 +54,19 @@ private static final ArrayList<Map<String, String>> _employeeList= new ArrayList
 		int n = Integer.parseInt((String) xPath.compile("count(//Employees/Employee)").evaluate(_doc, XPathConstants.STRING));
 		for (int i = 1; i <= n; i++) {
 			_employeeData = new HashMap<String, String>();
-			_employeeData.put("XpathEmployeeIDKey", (String) xPath.compile("//Employees/Employee[" + i + "]/EmployeeID/text()")
+			
+			_employeeData.put("XpathEmployeeIDKey", (String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, "]/EmployeeID/text()"))
 					.evaluate(_doc, XPathConstants.STRING));
-			_employeeData.put("XpathEmployeeNameKey", (String) xPath.compile("//Employees/Employee[" + i + "]/EmployeeFullName/text()")
+			_employeeData.put("XpathEmployeeNameKey", (String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, "]/EmployeeFullName/text()") )
 					.evaluate(_doc, XPathConstants.STRING));
 			_employeeData.put("XpathEmployeeAddressKey",
-					(String) xPath.compile("//Employees/Employee[" + i + "]/EmployeeFullAddress/text()").evaluate(_doc,
+					(String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, "]/EmployeeFullAddress/text()")).evaluate(_doc,
 							XPathConstants.STRING));
-			_employeeData.put("XpathFacultyNameKey", (String) xPath.compile("//Employees/Employee[" + i + "]/FacultyName/text()")
+			_employeeData.put("XpathFacultyNameKey", (String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, "]/FacultyName/text()"))
 					.evaluate(_doc, XPathConstants.STRING));
-			_employeeData.put("XpathDepartmentKey", (String) xPath.compile("//Employees/Employee[" + i + "]/Department/text()")
+			_employeeData.put("XpathDepartmentKey", (String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, "]/Department/text()") )
 					.evaluate(_doc, XPathConstants.STRING));
-			_employeeData.put("XpathDesignationKey", (String) xPath.compile("//Employees/Employee[" + i + "]/Designation/text()")
+			_employeeData.put("XpathDesignationKey", (String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, "]/Designation/text()") )
 					.evaluate(_doc, XPathConstants.STRING));
 			_employeeList.add(_employeeData);
 		}
