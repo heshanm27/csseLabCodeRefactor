@@ -20,52 +20,58 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 
-
 public class TransformUtil extends ConfigUtil {
-
-//Array list for store employees  
+	
 private static final ArrayList<Map<String, String>> _employeeList= new ArrayList<Map<String, String>>();
 
-//Map for store employee details
 	private static Map<String, String> _employeeData = null;
-	
-	//Constant for file paths
-	private static String _EmployeeRequestPathString  = "src/com/csse/config/EmployeeRequest.xml";
-	private static String _EmployeeModifiedPathString = "src/com/csse/config/Employee-modified.xsl";
-	private static String _EmployeeResponsePathString = "src/com/csse/config/EmployeeResponse.xml";
 	 
-
+	/**
+	 * 
+	 * This method converts request XML file into response XML file
+	 * @return void
+	 */
+	
 	public static void  requestTransform() throws Exception {
 
-		Source _requestSource = new StreamSource(new File(_EmployeeRequestPathString));
-		Source _modifiedSource = new StreamSource(new File(_EmployeeModifiedPathString));
-		Result _responseResult = new StreamResult(new File(_EmployeeResponsePathString));
+		Source _requestSource = new StreamSource(new File(CommonConstants.TransformUtil.EMPLOYEE_REQUEST_PATH_STRING));
+		Source _modifiedSource = new StreamSource(new File(CommonConstants.TransformUtil.EMPLOYEE_MODIFIED_PATH_STRING));
+		Result _responseResult = new StreamResult(new File(CommonConstants.TransformUtil.EMPLOYEE_RESPONSE_PATH_STRING));
 		
 		TransformerFactory.newInstance().newTransformer(_modifiedSource).transform(_requestSource, _responseResult);
 	}
 
-	public static ArrayList<Map<String, String>> XMLXPATHS() throws RuntimeException,ParserConfigurationException,NullPointerException,XPathExpressionException,IllegalArgumentException,Exception {
+
+	/**
+	 * 
+	 * This method converts XML inputs into an ArrayList of Employee Objects 
+	 * @return ArrayList<Map<String, String>>
+	 */
+	
+	
+	public static ArrayList<Map<String, String>> xmlPaths() throws RuntimeException,ParserConfigurationException,NullPointerException,XPathExpressionException,IllegalArgumentException,Exception {
 
 		Document _doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-				.parse("src/com/csse/config/EmployeeResponse.xml");
+				.parse(CommonConstants.TransformUtil.EMPLOYEE_RESPONSE_PATH_STRING);
 		
 		XPath xPath = XPathFactory.newInstance().newXPath();
-		int n = Integer.parseInt((String) xPath.compile("count(//Employees/Employee)").evaluate(_doc, XPathConstants.STRING));
+		int n = Integer.parseInt((String) xPath.compile(CommonConstants.TransformUtil.COUNTER_PATH).evaluate(_doc, XPathConstants.STRING));
 		for (int i = 1; i <= n; i++) {
+			
 			_employeeData = new HashMap<String, String>();
 			
-			_employeeData.put("XpathEmployeeIDKey", (String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, "]/EmployeeID/text()"))
+			_employeeData.put(CommonConstants.TransformUtil.XPATH_EMPLOYEE_ID, (String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, CommonConstants.TransformUtil.SUB_PATH_EMP_ID))
 					.evaluate(_doc, XPathConstants.STRING));
-			_employeeData.put("XpathEmployeeNameKey", (String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, "]/EmployeeFullName/text()") )
+			_employeeData.put(CommonConstants.TransformUtil.XPATH_EMPLOYEE_NAME, (String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, CommonConstants.TransformUtil.SUB_PATH_EMP_FULL_NAME) )
 					.evaluate(_doc, XPathConstants.STRING));
-			_employeeData.put("XpathEmployeeAddressKey",
-					(String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, "]/EmployeeFullAddress/text()")).evaluate(_doc,
+			_employeeData.put(CommonConstants.TransformUtil.XPATH_EMPLOYEE_ADDRESS,
+					(String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, CommonConstants.TransformUtil.SUB_PATH_EMP_ADDRESS)).evaluate(_doc,
 							XPathConstants.STRING));
-			_employeeData.put("XpathFacultyNameKey", (String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, "]/FacultyName/text()"))
+			_employeeData.put(CommonConstants.TransformUtil.XPATH_EMPLOYEE_FACULTY, (String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, CommonConstants.TransformUtil.SUB_PATH_EMP_FACULTY_NAME))
 					.evaluate(_doc, XPathConstants.STRING));
-			_employeeData.put("XpathDepartmentKey", (String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, "]/Department/text()") )
+			_employeeData.put(CommonConstants.TransformUtil.XPATH_EMPLOYEE_DEPARTMENT, (String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, CommonConstants.TransformUtil.SUB_PATH_EMP_DEPARTMENT) )
 					.evaluate(_doc, XPathConstants.STRING));
-			_employeeData.put("XpathDesignationKey", (String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, "]/Designation/text()") )
+			_employeeData.put(CommonConstants.TransformUtil.XPATH_EMPLOYEE_DESIGNATION, (String) xPath.compile(CommonConstants.TransformUtil.getCompliePath( i, CommonConstants.TransformUtil.SUB_PATH_EMP_DESIGNATION) )
 					.evaluate(_doc, XPathConstants.STRING));
 			_employeeList.add(_employeeData);
 		}

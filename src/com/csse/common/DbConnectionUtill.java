@@ -7,6 +7,14 @@ import java.sql.SQLTimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * 
+ * 
+ * This class is used to establish Java mysql database connectivity
+ *  
+ *
+ */
+
 public class DbConnectionUtill extends ConfigUtil{
 
 	private static Connection connection = null;
@@ -14,14 +22,15 @@ public class DbConnectionUtill extends ConfigUtil{
 	private static String userNameString = properties.getProperty("username");
 	private static String passwordString = properties.getProperty("password");
 	private static String driverNameString = properties.getProperty("driverName");
-	
-	//Create logger instance 
+
 	public static final Logger log = Logger.getLogger(DbConnectionUtill.class.getName());
 	
 	/**
-	 * 
+	 * This provides the connection for JDBC connectivity 
 	 *@return Connection type instance
+	 *
 	 */
+	
 	public static Connection getConnection() {
 		//check if connection exist
 		if (connection == null) {
@@ -48,11 +57,16 @@ public class DbConnectionUtill extends ConfigUtil{
 				log.log(Level.SEVERE,e.getMessage());
 			
 			}finally {
-//				try {
-//					connection.close();
-//				} catch (SQLException e) {
-//					log.log(Level.SEVERE,e.getMessage());
-//				}
+				try {
+					
+					//if exception occurs, this will close the database connection 
+					
+					if(connection != null) {
+						connection.close();
+					}
+				} catch (SQLException e) {
+					log.log(Level.SEVERE,e.getMessage());
+				}
 			}
 					
 	}

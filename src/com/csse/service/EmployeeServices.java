@@ -1,6 +1,7 @@
 package com.csse.service;
 
 
+import com.csse.common.CommonConstants;
 import com.csse.common.DbConnectionUtill;
 import com.csse.common.QueryUtil;
 import com.csse.common.TransformUtil;
@@ -23,10 +24,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * 
+ * Includes Database Data Storage functions and XML Data retrieval functions
+ * 
+ * XML data retrieval function : employeeFromXML 
+ *
+ */
+
 public class EmployeeServices extends AbstractServices {
 
 	private final ArrayList<Employee> employeeList= new ArrayList<Employee>();
-	//Create logger instance 
+	
 	private static final Logger log = Logger.getLogger(EmployeeServices.class.getName());
 	private static Connection connection ;
 
@@ -39,17 +48,25 @@ public class EmployeeServices extends AbstractServices {
 	}
 
 	@Override
+	
+	/**
+	 * Stores data collected from the XML file inside an global variable
+	 * This information is accessible from any class
+	 * 
+	 *  @return void
+	 */
+	
 	public void employeeFromXml() {
 		
 		try {
-			for (Map<String, String> docMap : TransformUtil.XMLXPATHS()) {
+			for (Map<String, String> docMap : TransformUtil.xmlPaths()) {
 				Employee employee= new Employee();
-				employee.setEmployeeId(docMap.get("XpathEmployeeIDKey"));
-				employee.setFullName(docMap.get("XpathEmployeeNameKey"));
-				employee.setAddress(docMap.get("XpathEmployeeAddressKey"));
-				employee.setFacultyName(docMap.get("XpathFacultyNameKey"));
-				employee.setDepartment(docMap.get("XpathDepartmentKey"));
-				employee.setDesignation(docMap.get("XpathDesignationKey"));
+				employee.setEmployeeId(docMap.get(CommonConstants.TransformUtil.XPATH_EMPLOYEE_ID));
+				employee.setFullName(docMap.get(CommonConstants.TransformUtil.XPATH_EMPLOYEE_NAME));
+				employee.setAddress(docMap.get(CommonConstants.TransformUtil.XPATH_EMPLOYEE_ADDRESS));
+				employee.setFacultyName(docMap.get(CommonConstants.TransformUtil.XPATH_EMPLOYEE_FACULTY));
+				employee.setDepartment(docMap.get(CommonConstants.TransformUtil.XPATH_EMPLOYEE_DEPARTMENT));
+				employee.setDesignation(docMap.get(CommonConstants.TransformUtil.XPATH_EMPLOYEE_DESIGNATION));
 				employeeList.add(employee);
 				System.out.println(employee.toString() + "\n");
 			}
@@ -70,6 +87,12 @@ public class EmployeeServices extends AbstractServices {
 		
 	}
 
+	/**
+	 * Creates Employee table inside sql database
+	 * @return void
+	 * @exception java.sql.SQLException
+	 */
+	
 	@Override
 	public void employeeTableCreate() {
 		try {
@@ -85,6 +108,13 @@ public class EmployeeServices extends AbstractServices {
 		
 	}
 
+
+	/**
+	 * Inserts a new employee to employee table in sql database
+	 * @return void
+	 * @exception java.sql.SQLException
+	 */
+	
 	@Override
 	public void employeesAdd() {
 		try {
@@ -111,6 +141,14 @@ public class EmployeeServices extends AbstractServices {
 		
 		
 	}
+	
+
+	/**
+	 * provides employee information for given employee id
+	 * @return void
+	 * @param String
+	 * @exception java.sql.SQLException
+	 */
 
 	@Override
 	public void employeeGetById(String empId) {
@@ -140,6 +178,13 @@ public class EmployeeServices extends AbstractServices {
 		
 	}
 
+	/**
+	 * delete employee from sql database for given employee id
+	 * @return void
+	 * @param String
+	 * @exception java.sql.SQLException
+	 */
+	
 	@Override
 	public void employeeDelete(String empId) {
 		try {
@@ -154,6 +199,13 @@ public class EmployeeServices extends AbstractServices {
 		
 	}
 
+	/**
+	 * read employee table from sql database
+	 * @return void
+	 * @param String
+	 * @exception java.sql.SQLException
+	 */
+	
 	@Override
 	public void employeeDisplay() {
 		ArrayList<Employee> empList = new ArrayList<Employee>();
@@ -180,6 +232,13 @@ public class EmployeeServices extends AbstractServices {
 		
 	}
 
+	/**
+	 * displays list of employees for given employees list
+	 * @return void
+	 * @param ArrayList<Employee>
+	 * @exception java.sql.SQLException
+	 */
+	
 	@Override
 	public void employeeOutput(ArrayList<Employee> employeeList) {
 		

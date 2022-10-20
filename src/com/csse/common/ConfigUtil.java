@@ -5,6 +5,11 @@ import java.util.logging.Logger;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ *
+ * This class reads the config.property file and attempt to find the resources
+ *
+ */
 
 public class ConfigUtil {
 

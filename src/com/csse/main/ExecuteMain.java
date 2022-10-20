@@ -1,33 +1,34 @@
 package com.csse.main;
 
 
-import java.text.MessageFormat;
-import java.util.Locale;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.csse.common.TransformUtil;
 import com.csse.service.EmployeeServices;
 
 public class ExecuteMain {
-
-	/**
-	 * @param args
-	 */
+	
+	private static final Logger log = Logger.getLogger(ExecuteMain.class.getName());
+	
 	public static void main(String[] args) {
 
 		EmployeeServices employeeService = new EmployeeServices();
+		
 		try {
 			TransformUtil.requestTransform();
-			employeeService.employeeFromXml();;
-//			employeeService.employeeTableCreate();
-//			employeeService.employeesAdd();
-//			employeeService.eMPLOYEEGETBYID("EMP10004");
-//			employeeService.EMPLOYEEDELETE("EMP10001");
-//			employeeService.employeeDisplay();
+			employeeService.employeeFromXml();
+			employeeService.employeeTableCreate();
+			employeeService.employeesAdd();
+			employeeService.employeeGetById("EMP10004");
+			employeeService.employeeDelete("EMP10001");
+			employeeService.employeeDisplay();
 		
 				
 				
 		} catch (Exception e) {
-			System.out.println("main error");
+			log.log(Level.SEVERE,e.getMessage());
 		}	
 		
 	}

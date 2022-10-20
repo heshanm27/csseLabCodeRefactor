@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 import com.csse.modals.Employee;
 
+/**
+ * 
+ * Abstract class for EmployeeServices Class
+ * Provides Template for EmployeServices class
+ *
+ */
+
 public abstract class AbstractServices {
 	
-	/**
-	 * create from xml
-	 * 
-	 * @return void
-	 * 
-	 *
-	 */
 	public abstract void employeeFromXml();
 	public abstract void employeeTableCreate();
 	public abstract void employeesAdd();

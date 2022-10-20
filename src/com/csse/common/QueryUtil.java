@@ -7,6 +7,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Element;
 
 
+/**
+ * 
+ * This class contains the XML Query
+ *
+ */
+
 public class QueryUtil extends ConfigUtil {
 	
 	public static final String _BYTAG_NAME_STRING = "query";

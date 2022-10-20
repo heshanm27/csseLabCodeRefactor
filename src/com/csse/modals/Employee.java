@@ -1,5 +1,11 @@
 package com.csse.modals;
 
+/**
+ * 
+ * This is the Employee model class
+ *
+ */
+
 public class Employee {
 
 	private String  employeeId;
